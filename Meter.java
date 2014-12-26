@@ -2,13 +2,11 @@ import java.util.List;
 
 public interface Meter {
 
-    void registerWithCompany(PowerCompany pc);
+    void switchTo(PowerCompany pc, Tariff newTariff);
 
-    void unregisterWithCompany();
+    void sendReading();
 
-    void sendReadings();
-
-    void sendAlert();
+    void sendAlert(Alert alert);
 
     List<Reading> getHistory();
 

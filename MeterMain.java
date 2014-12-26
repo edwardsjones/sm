@@ -2,7 +2,8 @@ public class MeterMain {
 
     public static void main(String[] args) {
 
-        Meter m = new FakeMeter();
+        PowerCompany pc = new FakePowerCompany();
+        Meter m = new FakeMeter(pc);
         Broker b = new FakeBroker();
 
         Deal betterDeal = b.getBetterDeal(m);

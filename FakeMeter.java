@@ -3,17 +3,26 @@ import java.util.List;
 
 public class FakeMeter implements Meter {
 
-    public void registerWithCompany(PowerCompany pc) {
+    private PowerCompany currentCompany;
 
-        
+    public FakeMeter(PowerCompany pc) {
+        currentCompany = pc;
+    }
+
+    public void switchTo(PowerCompany newCompany, Tariff newTariff) {
+
+        currentCompany.unregister(this);
+        newCompany.register(this, newTariff);        
 
     }
 
-    public void unregisterWithCompany() {}
+    public void sendReading() {
+        currentCompany.read(new Reading());
+    }
 
-    public void sendReadings() {}
-
-    public void sendAlert() {}
+    public void sendAlert(Alert alert) {
+        currentCompany.alert(alert);
+    }
 
     public List<Reading> getHistory() {
 
