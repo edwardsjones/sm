@@ -1,5 +1,7 @@
-public interface Broker {
+import java.rmi.*;
 
-    Deal getBetterDeal(Meter m);
+public interface Broker extends Remote {
+
+    Deal getBetterDeal(Meter m) throws RemoteException;
 
 }

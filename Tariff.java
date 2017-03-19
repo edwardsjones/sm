@@ -1,4 +1,6 @@
-public class Tariff {
+import java.io.Serializable;
+
+public class Tariff implements Serializable {
 
     private final int dayRate, nightRate;
 

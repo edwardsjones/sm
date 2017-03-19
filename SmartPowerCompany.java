@@ -3,23 +3,21 @@ import java.rmi.server.*;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
-import java.util.Random;
 
 public class SmartPowerCompany extends UnicastRemoteObject implements PowerCompany {
 
     private ConcurrentHashMap<String, Tariff> customers;
     private final Tariff tariff;
+    private final String name;
 
-    public SmartPowerCompany(int dayRate, int nightRate) throws RemoteException {
+    public SmartPowerCompany(int dayRate, int nightRate, String name) throws RemoteException {
         customers = new ConcurrentHashMap<String, Tariff>();
         tariff = new Tariff(dayRate, nightRate); 
+        this.name = name;
     }
 
     // Possible to implement some sort of tariff determining algorithm, just not relevant.
     public Tariff getTariff(List<Reading> history) throws RemoteException {
-        Random rng = new Random();
-        int dayRate = rng.nextInt(21) + 15;
-        int nightRate = rng.nextInt(11) + 5;
         return tariff;
     }
 
@@ -34,13 +32,20 @@ public class SmartPowerCompany extends UnicastRemoteObject implements PowerCompa
     }
 
     public void alert(Alert a) throws RemoteException {
-        System.out.println("Yo.");
+        System.out.println("Alert from " + a.getSourceID() + ".");
     }
 
     public void read(Reading latest) throws RemoteException {
+        System.out.println("Reading from " + latest.getId() + "."); 
+    }
+    
+    public void command(Meter m, int code) throws RemoteException {
+        if (customers.containsKey(m))
+            m.command(code);
     }
 
-    public void command(Meter m, int action) {
+    public String getName() throws RemoteException {
+        return name;
     }
 
 }

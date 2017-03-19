@@ -1,4 +1,7 @@
-public class Deal {
+import java.io.Serializable;
+import java.rmi.*;
+
+public class Deal implements Serializable {
 
     private final Meter m;
     private final PowerCompany pc;
@@ -10,13 +13,16 @@ public class Deal {
         this.tariff = tariff;
     }
 
-    
-    public void accept() {
+    public void accept() throws RemoteException {
         m.switchTo(pc, tariff);
     }
 
     public Tariff getTariff() {
         return tariff;
+    }
+
+    public PowerCompany getPowerCompany() {
+        return pc;
     }
 
 }

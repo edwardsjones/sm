@@ -1,15 +1,17 @@
+import java.rmi.*;
+import java.rmi.server.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListBroker implements Broker {
+public class ListBroker extends UnicastRemoteObject implements Broker {
 
     private ArrayList<PowerCompany> companies;
 
-    public ListBroker(List<PowerCompany> companies) {
+    public ListBroker(List<PowerCompany> companies) throws RemoteException {
         this.companies = new ArrayList<PowerCompany>(companies);
     }
 
-    public Deal getBetterDeal(Meter m) {
+    public Deal getBetterDeal(Meter m) throws RemoteException {
 
         List<Reading> history = m.getHistory();
         Tariff bestTariff = null;
